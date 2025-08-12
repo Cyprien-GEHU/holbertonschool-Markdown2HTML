@@ -3,7 +3,6 @@
 import sys
 import os
 
-
 def main():
     """ the main function of the programm"""
     if len(sys.argv) < 3:
@@ -16,6 +15,18 @@ def main():
     if not os.path.isfile(path_readme):
         sys.stderr.write(f"Missing {path_readme}\n")
         exit(1)
+
+    with open(path_readme, 'r') as f_read, open(path_html, 'w') as f_wrote:
+        for line in f_read:
+            if line.startswith('#'):
+                num = 0
+                while num < len(line) and line[num] == "#":
+                    num += 1
+                if 1 <= num <= 6 and len(line) > num and line[num] != "#":
+                    title = line[num:].strip()
+                    f_wrote.write(f"<h{num}>{title}</h{num}>\n")
+    
+    
     exit(0)
 
 
