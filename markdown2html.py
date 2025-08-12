@@ -1,22 +1,17 @@
 #!/usr/bin/python3
 
 import sys
-from pathlib import Path
+import os
 
 if len(sys.argv) < 3:
-    sys.stderr.write("Usage: ./markdown2html.py README.md README.html" + '\n')
+    sys.stderr.write("Usage: ./markdown2html.py README.md README.html\n")
     exit(1)
 
-name = sys.argv[0]
-path_readme = Path(sys.argv[1])
-path_html = Path(sys.argv[2])
+path_readme = sys.argv[1]
+path_html = sys.argv[2]
 
-if not path_readme.exists():
-    sys.stderr.write("Missing README.md" + '\n')
-    exit(1)
-
-if not path_html.exists():
-    sys.stderr.write("Missing README.html" + '\n')
+if not os.path.isfile(path_readme):
+    sys.stderr.write(f"Missing {path_readme}\n")
     exit(1)
 
 exit(0)
