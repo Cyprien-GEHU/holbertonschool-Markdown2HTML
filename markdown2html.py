@@ -25,7 +25,7 @@ def main():
     with open(path_readme, 'r') as f_read, open(path_html, 'w') as f_wrote:
         for line in f_read:
             if line.startswith('#'):
-                if isList:
+                if isList or tag == "p":
                     my_html.append(f"</{tag}>")
                     tag = None
                     isList = False
@@ -39,6 +39,9 @@ def main():
 
             elif line.startswith('-'):
                 content = line[1:].strip()
+                if tag == "p":
+                    my_html.append("</p>")
+                    tag = None
                 if not isList:
                     isList = True
                     my_html.append("<ul>")
@@ -51,6 +54,9 @@ def main():
 
             elif line.startswith('*'):
                 content = line[1:].strip()
+                if tag == "p":
+                    my_html.append("</p>")
+                    tag = None
                 if not isList:
                     isList = True
                     my_html.append("<ol>")
@@ -70,9 +76,11 @@ def main():
                 if len(text) != 0:
                     if tag == "p":
                         my_html.append("<br/>")
-                    tag = "p"
+                    else:
+                        tag = "p"
+                        my_html.append("<p>")
                     my_html.append(text)
-                else:
+                if len(text) == 0 and tag == "p":
                     my_html.append("</p>")
                     tag = None
 
