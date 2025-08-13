@@ -68,11 +68,15 @@ def main():
                     isList = False
                 text = line[0:].strip()
                 if len(text) != 0:
-                    my_html.append(f"<p>{text}</p>")
+                    if tag == "p":
+                        my_html.append("<br/>")
+                    tag = "p"
+                    my_html.append(text)
                 else:
-                    my_html.append("")
+                    my_html.append("</p>")
+                    tag = None
 
-        if isList:
+        if tag:
             my_html.append(f"</{tag}>")
 
         for lh in my_html:
