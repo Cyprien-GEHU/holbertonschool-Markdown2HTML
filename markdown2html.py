@@ -61,6 +61,14 @@ def main():
                     tag = "ol"
                 my_html.append(f"\t<li>{content}</li>")
 
+            else:
+                print(len(line))
+                text = line[0:].strip()
+                if len(text) != 0:
+                    my_html.append(f"<p>{text}</p>")
+                else:
+                    my_html.append("")
+
         if isList:
             my_html.append(f"</{tag}>")
 
