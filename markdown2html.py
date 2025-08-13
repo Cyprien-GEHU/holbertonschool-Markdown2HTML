@@ -49,6 +49,18 @@ def main():
                     tag = "ul"
                 my_html.append(f"\t<li>{content}</li>")
 
+            elif line.startswith('*'):
+                content = line[1:].strip()
+                if not isList:
+                    isList = True
+                    my_html.append("<ol>")
+                    tag = "ol"
+                elif isList and tag != "ol":
+                    my_html.append(f"</{tag}>")
+                    my_html.append("<ol>")
+                    tag = "ol"
+                my_html.append(f"\t<li>{content}</li>")
+
         if isList:
             my_html.append(f"</{tag}>")
 
