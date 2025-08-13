@@ -62,6 +62,10 @@ def main():
                 my_html.append(f"\t<li>{content}</li>")
 
             else:
+                if isList:
+                    my_html.append(f"</{tag}>")
+                    tag = None
+                    isList = False
                 print(len(line))
                 text = line[0:].strip()
                 if len(text) != 0:
